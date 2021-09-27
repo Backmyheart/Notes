@@ -1,0 +1,94 @@
+"
+"                         ███████████████████████████
+"                         ███████▀▀▀░░░░░░░▀▀▀███████
+"                         ████▀░░░░░░░░░░░░░░░░░▀████
+"                         ███│░░░░░░░░░░░░░░░░░░░│███
+"                         ██▌│░░░░░░░░░░░░░░░░░░░│▐██
+"                         ██░└┐░░░░░░░░░░░░░░░░░┌┘░██
+"                         ██░░└┐░░░░░░░░░░░░░░░┌┘░░██
+"                         ██░░┌┘▄▄▄▄▄░░░░░▄▄▄▄▄└┐░░██
+"                         ██▌░│██████▌░░░▐██████│░▐██
+"                         ███░│▐███▀▀░░▄░░▀▀███▌│░███
+"                         ██▀─┘░░░░░░░▐█▌░░░░░░░└─▀██
+"                         ██▄░░░▄▄▄▓░░▀█▀░░▓▄▄▄░░░▄██
+"                         ████▄─┘██▌░░░░░░░▐██└─▄████
+"                         █████░░▐█─┬┬┬┬┬┬┬─█▌░░█████
+"                         ████▌░░░▀┬┼┼┼┼┼┼┼┬▀░░░▐████
+"                         █████▄░░░└┴┴┴┴┴┴┴┘░░░▄█████
+"                         ███████▄░░░░░░░░░░░▄███████
+"                         ██████████▄▄▄▄▄▄▄██████████
+"                         ███████████████████████████
+"
+"
+"
+"                ╔══════════════════════════════════════════╗
+"                ║           ⎋      zhu  lei    ⎋           ║
+"                ╚══════════════════════════════════════════╝
+
+
+
+set nocompatible	
+
+syntax on			    		" Enable syntax highlighting.
+
+set number                                      " Show line number
+set autoindent					" Indent according to previous line.
+set softtabstop =4				" Tab key indents by 4 spaces.
+set shiftwidth =4				" >> indents by 4 spaces.
+set shiftround					" >> indents to next multiple of 'shiftwidth'
+
+set showmode					" Show current mode in command-line.
+set showcmd				    	" Show already typed keys when more are expected.
+
+set incsearch					" Highlight while searching with / or ?.
+set hlsearch					" Keep matches highlighted.
+
+set ttyfast					" Faster redrawing.
+set lazyredraw					" Only redraw when necessary.
+
+set splitbelow                  		" Open new windows below the current window.
+set splitright             	        	" Open new windows right of the current window.
+
+set wrapscan               		        " Searches wrap around end-of-file.
+set report =0 	        		        " Always report changed lines.
+set synmaxcol =200       		        " Only highlight the first 200 columns.
+
+autocmd InsertLeave,WinEnter * set cursorline   " Find the current line quickly.
+autocmd InsertEnter,WinLeave * set nocursorline " Close when insert mode.
+
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+                                                " n与N的实际跳转方向取决于使用/还是?来执行搜索
+nnoremap <expr> n 'Nn'[v:searchforward]         " n 始终为向后搜索
+nnoremap <expr> N 'nN'[v:searchforward]         " N始终为向前搜索
+
+set tags=tags;                                  " Plugins ctags
+set autochdir
+
+filetype off                                    " Required
+
+" 设置包括vundle和初始化相关的runtime patch
+set rtp+=~/.vim/bundle/Vundle.vim
+
+" Keep Plugin commands between vundle#begin/end.
+call vundle#begin()
+
+" 让vundle管理插件版本，必须
+Plugin 'VundleVim/Vundle.vim'
+
+" 以下范例用来支持不同格式的插件安装
+" 请将安装插件的命令放在 vundle#begin 和 vundle#end 之间
+
+
+" Plugin 'markdown-preview.vim'
+
+
+" 你所有的插件需要在下面这行之前
+call vundle#end()                               " Required
+
+
+filetype plugin indent on	        	" 加载 vim自带 和 插件相应的语法和文件类型相关脚本
+filetype plugin on                              " 忽视插件改变缩进
